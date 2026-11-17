@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siempre junto a ti</title>
+    <meta property="og:title" content="Galaxia">
+    <meta property="og:image" content="https://mi-universo-perfecto.netlify.app/assets/icon.webp">
+    <meta property="og:url" content="https://mi-universo-perfecto.netlify.app/">
+    <meta property="og:type" content="website">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Montserrat:wght@300;500;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://mi-universo-perfecto.netlify.app/assets/icon.webp">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --vivid-red: #ff0b3a;
+            --bright-crimson: #ff1744;
+            --soft-pink: #ffb7c5;
+            --rose-pink: #f78fb3;
+            --deep-magenta: #8e44ad;
+            --dark-love: #180208;
+        }
+
+        html, body {
+            width: 100%; height: 100%;
+            margin: 0; overflow: hidden;
+            background: radial-gradient(ellipse at 50% 45%, #2a0512 0%, #150209 48%, #050003 100%);
+            font-family: 'Montserrat', sans-serif;
+            cursor: grab;
+            -webkit-user-select: none; user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body:active { cursor: grabbing; }
+        
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+            background:
+                radial-gradient(ellipse at 18% 22%, rgba(255, 11, 58, 0.18), transparent 40%),
+                radial-gradient(ellipse at 82% 75%, rgba(247, 143, 179, 0.16), transparent 42%),
+                radial-gradient(ellipse at 50% 50%, rgba(142, 68, 173, 0.12), transparent 50%),
+                linear-gradient(120deg, transparent 35%, rgba(255, 183, 197, 0.03) 50%, transparent 65%);
+            animation: auroraLoveDrift 14s ease-in-out infinite alternate;
+        }
+
+        @keyframes auroraLoveDrift {
+            from { transform: translate3d(-1.5%, -1%, 0) scale(1); filter: hue-rotate(0deg); }
+            to { transform: translate3d(1.5%, 1%, 0) scale(1.05); filter: hue-rotate(15deg); }
+        }
+
+        canvas { display: block; position: fixed; top: 0; left: 0; z-index: 1; filter: saturate(1.3); }
+
+        #main-title {
+            position: absolute;
+            top: clamp(18px, 4vh, 38px);
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(94vw, 1000px);
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.2rem, 3.2vw, 2.5rem);
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #fff0f3;
+            text-shadow: 0 0 10px rgba(255, 23, 68, 0.9), 0 0 26px rgba(255, 11, 58, 0.7), 0 0 50px rgba(247, 143, 179, 0.5);
+            z-index: 20;
+            pointer-events: none;
+            text-align: center;
+        }
+
+        #love-name {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Dancing Script', cursive;
+            font-weight: 700;
+            font-size: clamp(3.8rem, 9vw, 7.2rem);
+            line-height: 1.1;
+            text-align: center;
+            color: #ffffff;
+            text-shadow: 
+                0 0 6px #ffffff,
+                0 0 14px #ff1744,
+                0 0 28px #ff0b3a,
+                0 0 55px #f78fb3,
+                0 0 80px #8e44ad;
+            pointer-events: none;
+            white-space: nowrap;
+            z-index: 250;
+            padding: 0.1em 0.3em;
+            animation: nameGlow 3.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes nameGlow {
+            0% { filter: brightness(1); transform: translate(-50%, -50%) scale(1); }
+            100% { filter: brightness(1.25); transform: translate(-50%, -50%) scale(1.04); }
+        }
+
+        #circular-text-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: min(78vh, 78vw);
+            height: min(78vh, 78vw);
+            max-width: 780px;
+            max-height: 780px;
+            pointer-events: none;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0.85;
+        }
+        #circular-text-container svg {
+            width: 100%;
+            height: 100%;
+            animation: rotateText 55s linear infinite;
+        }
+        #circular-text-container textPath {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            letter-spacing: 0.22em;
+            fill: #ffccd5;
+            text-shadow: 0 0 10px rgba(255, 23, 68, 0.9), 0 0 20px rgba(255, 183, 197, 0.6);
+            text-transform: uppercase;
+        }
+
+        @keyframes rotateText {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        #entry-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background:
+                radial-gradient(circle at 50% 35%, rgba(255, 23, 68, 0.35), transparent 45%),
+                radial-gradient(circle at 80% 80%, rgba(142, 68, 173, 0.3), transparent 40%),
+                #080004;
+            display: flex; justify-content: center; align-items: center;
+            flex-direction: column; color: white; z-index: 9999; padding: 20px;
+        }
+
+        .form-container {
+            position: relative;
+            background: linear-gradient(145deg, rgba(50, 10, 25, 0.85), rgba(20, 3, 10, 0.88));
+            border: 1px solid rgba(255, 183, 197, 0.35);
+            padding: 38px 30px;
+            border-radius: 28px;
+            backdrop-filter: blur(20px);
+            max-width: 390px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 35px rgba(255, 23, 68, 0.35), inset 0 1px rgba(255, 255, 255, 0.15);
+        }
+
+        .form-container::before {
+            content: "❤️  🌹  ❤️";
+            display: block;
+            margin-bottom: 15px;
+            color: #ffb7c5;
+            font-size: 1.25rem;
+            letter-spacing: 0.6em;
+            text-shadow: 0 0 12px #ff1744;
+        }
+
+        #entry-text {
+            font-family: 'Dancing Script', cursive;
+            font-weight: 700;
+            font-size: 3.4rem;
+            color: #fff0f3;
+            text-shadow: 0 0 16px #ff1744, 0 0 32px #ff0b3a;
+            margin-bottom: 6px;
+        }
+
+        .sub-entry-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.88rem;
+            color: #ffccd5;
+            margin-bottom: 28px;
+            font-weight: 300;
+            letter-spacing: 0.04em;
+            line-height: 1.6;
+        }
+
+        #entry-button {
+            width: 100%;
+            padding: 15px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 999px;
+            background: linear-gradient(110deg, #ff0b3a, #ff1744 45%, #d63031 75%, #8e44ad);
+            color: #FFFFFF;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            cursor: pointer;
+            box-shadow: 0 0 25px rgba(255, 11, 58, 0.6), 0 8px 24px rgba(0,0,0,0.4);
+            transition: all 0.3s ease;
+            animation: latidoLove 2.2s infinite ease-in-out;
+        }
+
+        #entry-button:hover {
+            filter: brightness(1.2);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 0 40px rgba(255, 23, 68, 0.9);
+        }
+        
+        @keyframes latidoLove {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.04); }
+        }
+
+        #love-card-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(10, 0, 4, 0.88);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            backdrop-filter: blur(12px);
+            cursor: pointer;
+            padding: 20px;
+        }
+
+        #love-card {
+            position: relative;
+            width: 100%; max-width: 350px;
+            aspect-ratio: 9 / 14;
+            background-size: cover;
+            background-position: center;
+            border: 1px solid rgba(255, 183, 197, 0.5);
+            border-radius: 26px;
+            box-shadow: 0 0 35px rgba(255, 11, 58, 0.5), 0 0 75px rgba(142, 68, 173, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 28px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        #love-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(160deg, rgba(20, 2, 8, 0.55), rgba(8, 0, 4, 0.82));
+            z-index: 1;
+        }
+
+        #love-card-text {
+            position: relative;
+            font-family: 'Dancing Script', cursive;
+            font-weight: 700;
+            font-size: clamp(2.2rem, 7vw, 3.1rem);
+            color: #ffffff;
+            text-shadow: 0 2px 10px #000000, 0 0 20px rgba(255, 23, 68, 0.7);
+            z-index: 2;
+            line-height: 1.3;
+        }
+
+        #music-toggle {
+            position: fixed;
+            right: 22px;
+            bottom: 22px;
+            z-index: 300;
+            display: none;
+            align-items: center;
+            gap: 9px;
+            padding: 12px 18px;
+            border: 1px solid rgba(255, 183, 197, 0.4);
+            border-radius: 999px;
+            color: #fff0f3;
+            background: rgba(30, 4, 14, 0.75);
+            backdrop-filter: blur(14px);
+            box-shadow: 0 0 22px rgba(255, 11, 58, 0.35);
+            font: 600 0.75rem 'Montserrat', sans-serif;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #music-toggle:hover { background: rgba(60, 8, 28, 0.9); }
+        #music-toggle .music-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ff1744;
+            box-shadow: 0 0 12px #ff1744;
+        }
+
+        #universe-caption {
+            position: fixed;
+            left: 50%;
+            bottom: 26px;
+            transform: translateX(-50%);
+            z-index: 30;
+            width: min(78vw, 520px);
+            color: rgba(255, 204, 213, 0.85);
+            font: 600 0.65rem 'Montserrat', sans-serif;
+            letter-spacing: 0.24em;
+            text-align: center;
+            text-transform: uppercase;
+            pointer-events: none;
+            text-shadow: 0 0 12px rgba(255, 11, 58, 0.7);
+        }
+
+        @media (max-width: 600px) {
+            #main-title { top: 20px; font-size: clamp(0.95rem, 4.8vw, 1.5rem); letter-spacing: 0.08em; }
+            #love-name { font-size: clamp(3rem, 13vw, 4.5rem); }
+            #circular-text-container { width: 88vw; height: 88vw; }
+            #circular-text-container textPath { font-size: 0.9rem; }
+            #universe-caption { bottom: 20px; font-size: 0.52rem; letter-spacing: 0.15em; }
+            #music-toggle { right: 12px; bottom: 50px; padding: 10px 14px; font-size: 0.65rem; }
+            .form-container { padding: 32px 22px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+        }
+    </style>
+</head>
+<body>
+    <h1 id="main-title">Eres mi galaxia entera 💓!</h1>
+
+    <div id="entry-modal">
+        <div class="form-container">
+            <div id="entry-text">¡Hola, mi amor!</div>
+            <div class="sub-entry-text">Te he preparado una galaxia entera llena de nuestro amor...</div>
+            <button id="entry-button">❣️ ENTRAR A TU GALAXIA ❣️</button>
+        </div>
+    </div>
+
+    <div id="love-name">Anahí</div>
+    
+    <div id="circular-text-container">
+        <svg viewBox="0 0 1000 1000">
+            <defs>
+                <path id="textCircle" d="M 500, 500 m -350, 0 a 350,350 0 1,1 700,0 a 350,350 0 1,1 -700,0" />
+            </defs>
+            <text>
+                <textPath href="#textCircle" startOffset="0%">
+                    Eres mi universo entero • Mi lugar favorito en el mundo • Contigo todo es más bonito • Mi amor eterno • Gracias por existir • Eres mi calma •
+                </textPath>
+            </text>
+        </svg>
+    </div>
+
+    <div id="love-card-overlay">
+        <div id="love-card" style="background-image: url('assets/card.png');">
+            <p id="love-card-text">Hoy quiero celebrar tu vida y desearte que tu mundo siempre esté lleno de colores hermosos.</p>
+        </div>
+    </div>
+
+    <div id="universe-caption">un universo lleno de amor creado solo para ti ✦</div>
+    <button id="music-toggle" type="button"><span class="music-dot"></span><span id="music-label">PAUSAR MÚSICA</span></button>
+    <audio id="background-music" loop=""></audio>
+
+    <canvas id="galaxy-canvas"></canvas>
+
+    <script type="importmap">
+    { 
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+        } 
+    }
+    </script>
+
+    <!-- ENLACE AL ARCHIVO JAVASCRIPT EXTERNO -->
+    <script type="module" src="galaxia.js"></script>
+</body>
+</html>
